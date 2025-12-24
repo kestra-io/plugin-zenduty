@@ -52,9 +52,10 @@ import java.util.Map;
                         prefix: true
                 """
         )
-    }
+    },
+    aliases = "io.kestra.plugin.notifications.zenduty.ZendutyExecution"
 )
-public class ZendutyExecution extends io.kestra.plugin.zenduty.ZendutyTemplate implements ExecutionInterface {
+public class ZendutyExecution extends ZendutyTemplate implements ExecutionInterface {
     @Builder.Default
     private final Property<String> executionId = Property.ofExpression("{{ execution.id }}");
     private Property<Map<String, Object>> customFields;

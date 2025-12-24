@@ -70,7 +70,8 @@ import java.net.URI;
                       }
                 """
         )
-    }
+    },
+    aliases = "io.kestra.plugin.notifications.zenduty.ZendutyAlert"
 )
 public class ZendutyAlert extends AbstractZendutyConnection {
 
