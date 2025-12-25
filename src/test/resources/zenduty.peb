@@ -1,0 +1,6 @@
+{
+    "message": "{{message}}",
+    "entity_id": "{{entityId}}",
+    "alert_type": "error",
+    "summary": "A message *with some bold text* and _some italicized text_."
+}
