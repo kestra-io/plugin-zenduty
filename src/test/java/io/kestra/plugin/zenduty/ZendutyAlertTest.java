@@ -34,21 +34,16 @@ public class ZendutyAlertTest {
         RunContext runContext = runContextFactory.of(Map.of(
             "message", "Zenduty test alert notification",
             "entityId", IdUtils.create()
-                                                           ));
+        ));
 
         EmbeddedServer embeddedServer = applicationContext.getBean(EmbeddedServer.class);
         embeddedServer.start();
 
         ZendutyAlert task = ZendutyAlert.builder()
             .url(embeddedServer.getURI() + "/webhook-unit-test")
-            .payload(Property.ofValue(
-                Files.asCharSource(
-                    new File(Objects.requireNonNull(ZendutyAlertTest.class.getClassLoader()
-                            .getResource("zenduty.peb"))
-                        .toURI()),
-                    StandardCharsets.UTF_8
-                                  ).read()
-                    ))
+            .payload(Property.ofValue(Files.asCharSource(
+                new File(Objects.requireNonNull(ZendutyAlertTest.class.getClassLoader().getResource("zenduty.peb")).toURI()),
+                StandardCharsets.UTF_8).read()))
             .build();
 
         task.run(runContext);
