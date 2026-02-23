@@ -19,9 +19,8 @@ import java.util.Map;
 @Getter
 @NoArgsConstructor
 @Schema(
-    title = "Send a Zenduty message with the execution information.",
-    description = "The message will include a link to the execution page in the UI along with the execution ID, namespace, flow name, the start date, duration, and the final status of the execution. If failed, then the task that led to the failure is specified.\n\n" +
-        "Use this notification task only in a flow that has a [Flow trigger](https://kestra.io/docs/administrator-guide/monitoring#alerting). Don't use this notification task in `errors` tasks. Instead, for `errors` tasks, use the [ZendutyAlert](https://kestra.io/plugins/plugin-zenduty/io.kestra.plugin.zenduty.zendutyalert) task."
+    title = "Notify Zenduty on flow execution",
+    description = "Sends a templated Zenduty message with execution link, namespace, flow, start time, duration, status, and failing task (if any). Use only in Flow trigger notifications; for `errors` handlers prefer `ZendutyAlert`."
 )
 @Plugin(
     examples = {

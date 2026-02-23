@@ -28,39 +28,46 @@ import java.util.Objects;
 public abstract class ZendutyTemplate extends ZendutyAlert {
 
     @Schema(
-        title = "Template to use",
+        title = "Template path",
+        description = "Internal template resource path rendered before sending to Zenduty",
         hidden = true
     )
     protected Property<String> templateUri;
 
     @Schema(
-        title = "Map of variables to use for the message template"
+        title = "Template variables map",
+        description = "Values injected into the template; supports expressions"
     )
     protected Property<Map<String, Object>> templateRenderMap;
 
     @Schema(
-        title = "Event title"
+        title = "Event title",
+        description = "Rendered into `message` in the Zenduty payload"
     )
     protected Property<String> message;
 
     @Schema(
-        title = "Event message. Summary description"
+        title = "Event summary",
+        description = "Rendered into `summary` in the Zenduty payload"
     )
     protected Property<String> summary;
 
     @Schema(
-        title = "Event alert type",
+        title = "Alert severity",
+        description = "Zenduty alert type value rendered to lowercase string",
         implementation = AlertType.class
     )
     protected Property<AlertType> alertType;
 
     @Schema(
-        title = "A unique id for the alert. If not provided, the Zenduty API will create one"
+        title = "Alert entity id",
+        description = "Optional unique id for the alert; Zenduty generates one if omitted"
     )
     protected Property<String> entityId;
 
     @Schema(
-        title = "List of URLs related to the alert"
+        title = "Related URLs",
+        description = "List of URLs added under `urls` in the payload"
     )
     protected Property<List<String>> urls;
 
