@@ -25,10 +25,8 @@ import java.net.URI;
 @Getter
 @NoArgsConstructor
 @Schema(
-    title = "Send a Zenduty alert.",
-    description = "Add this task to a list of `errors` tasks to implement custom flow-level failure notifications. " +
-        "Check the [Zenduty integration documentation](https://docs.zenduty.com/docs/api) and " +
-        "the [Zenduty Events API specification](https://apidocs.zenduty.com/#tag/Events/paths/~1api~1events~1%7Bintegration_key%7D~1/post) for more details."
+    title = "Send Zenduty alert payload",
+    description = "Posts a custom JSON payload to the Zenduty Events API. Use in `errors` to signal flow failures. Payload must follow the Events API (required: `message`, `alert_type`)."
 )
 @Plugin(
     examples = {
@@ -76,14 +74,16 @@ import java.net.URI;
 public class ZendutyAlert extends AbstractZendutyConnection {
 
     @Schema(
-        title = "Zenduty API endpoint"
+        title = "Zenduty Events API URL",
+        description = "Full Events API endpoint including integration key, e.g. `https://www.zenduty.com/api/events/<integration_key>/`"
     )
     @PluginProperty(dynamic = true)
     @NotBlank
     protected String url;
 
     @Schema(
-        title = "Zenduty alert request payload"
+        title = "Alert payload JSON",
+        description = "Raw JSON body sent to Zenduty; supports expressions before send"
     )
     protected Property<String> payload;
 
