@@ -31,7 +31,7 @@ public abstract class AbstractZendutyConnection extends Task implements Runnable
         title = "Tune Zenduty HTTP client",
         description = "Optional HTTP client settings such as timeouts, charset, headers, and response size limits. Defaults: read timeout 10s, read idle timeout 5m, connection pool idle timeout 0s (no reuse), max content length 10 MB, charset UTF-8"
     )
-    @PluginProperty(dynamic = true)
+    @PluginProperty(dynamic = true, group = "advanced")
     protected RequestOptions options;
 
     protected HttpConfiguration httpClientConfigurationWithOptions() throws IllegalVariableEvaluationException {
@@ -72,32 +72,39 @@ public abstract class AbstractZendutyConnection extends Task implements Runnable
     @Builder
     public static class RequestOptions {
         @Schema(title = "Connection timeout before failing")
+        @PluginProperty(group = "execution")
         private final Property<Duration> connectTimeout;
 
         @Schema(title = "Read timeout before failing", description = "Defaults to 10s; aborts if the server does not send data within this duration")
         @Builder.Default
+        @PluginProperty(group = "execution")
         private final Property<Duration> readTimeout = Property.ofValue(Duration.ofSeconds(10));
 
         @Schema(title = "Idle read timeout", description = "Defaults to 5m; closes the connection if no data is read during this interval")
         @Builder.Default
+        @PluginProperty(group = "execution")
         private final Property<Duration> readIdleTimeout = Property.ofValue(Duration.of(5, ChronoUnit.MINUTES));
 
         @Schema(title = "Connection pool idle timeout", description = "Defaults to 0s; disables keeping idle connections in the pool")
         @Builder.Default
+        @PluginProperty(group = "execution")
         private final Property<Duration> connectionPoolIdleTimeout = Property.ofValue(Duration.ofSeconds(0));
 
         @Schema(title = "Maximum response size", description = "Defaults to 10 MB; responses larger than this fail")
         @Builder.Default
+        @PluginProperty(group = "execution")
         private final Property<Integer> maxContentLength = Property.ofValue(1024 * 1024 * 10);
 
         @Schema(title = "Request charset", description = "Defaults to UTF-8 for request encoding")
         @Builder.Default
+        @PluginProperty(group = "advanced")
         private final Property<Charset> defaultCharset = Property.ofValue(StandardCharsets.UTF_8);
 
         @Schema(
             title = "HTTP headers",
             description = "Additional headers to include on the Zenduty request; supports expression rendering"
         )
+        @PluginProperty(group = "advanced")
         public Property<Map<String, String>> headers;
     }
 }
