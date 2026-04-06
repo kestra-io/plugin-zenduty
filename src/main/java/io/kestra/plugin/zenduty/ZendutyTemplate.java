@@ -19,6 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import io.kestra.core.models.annotations.PluginProperty;
 
 @SuperBuilder
 @ToString
@@ -32,24 +33,28 @@ public abstract class ZendutyTemplate extends ZendutyAlert {
         description = "Internal template resource path rendered before sending to Zenduty",
         hidden = true
     )
+    @PluginProperty(group = "advanced")
     protected Property<String> templateUri;
 
     @Schema(
         title = "Template variables map",
         description = "Values injected into the template; supports expressions"
     )
+    @PluginProperty(group = "advanced")
     protected Property<Map<String, Object>> templateRenderMap;
 
     @Schema(
         title = "Event title",
         description = "Rendered into `message` in the Zenduty payload"
     )
+    @PluginProperty(group = "advanced")
     protected Property<String> message;
 
     @Schema(
         title = "Event summary",
         description = "Rendered into `summary` in the Zenduty payload"
     )
+    @PluginProperty(group = "advanced")
     protected Property<String> summary;
 
     @Schema(
@@ -57,18 +62,21 @@ public abstract class ZendutyTemplate extends ZendutyAlert {
         description = "Zenduty alert type value rendered to lowercase string",
         implementation = AlertType.class
     )
+    @PluginProperty(group = "advanced")
     protected Property<AlertType> alertType;
 
     @Schema(
         title = "Alert entity id",
         description = "Optional unique id for the alert; Zenduty generates one if omitted"
     )
+    @PluginProperty(group = "advanced")
     protected Property<String> entityId;
 
     @Schema(
         title = "Related URLs",
         description = "List of URLs added under `urls` in the payload"
     )
+    @PluginProperty(group = "advanced")
     protected Property<List<String>> urls;
 
     @SuppressWarnings("unchecked")

@@ -78,7 +78,7 @@ public class ZendutyAlert extends AbstractZendutyConnection {
         title = "Zenduty Events API URL",
         description = "Full Events API endpoint including integration key, e.g. `https://www.zenduty.com/api/events/<integration_key>/`"
     )
-    @PluginProperty(dynamic = true)
+    @PluginProperty(dynamic = true, group = "main")
     @NotBlank
     protected String url;
 
@@ -86,6 +86,7 @@ public class ZendutyAlert extends AbstractZendutyConnection {
         title = "Alert payload JSON",
         description = "Raw JSON body sent to Zenduty; supports expressions before send"
     )
+    @PluginProperty(group = "main")
     protected Property<String> payload;
 
     @Override
