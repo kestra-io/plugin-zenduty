@@ -78,7 +78,7 @@ public class ZendutyAlert extends AbstractZendutyConnection {
         title = "Zenduty Events API URL",
         description = "Full Events API endpoint including integration key, e.g. `https://www.zenduty.com/api/events/<integration_key>/`"
     )
-    @PluginProperty(dynamic = true, group = "main")
+    @PluginProperty(dynamic = true, group = "main", secret = true)
     @NotBlank
     protected String url;
 
