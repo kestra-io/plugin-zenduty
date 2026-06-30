@@ -79,6 +79,7 @@ public class ZendutyAlert extends AbstractZendutyConnection {
         description = "Full Events API endpoint including integration key, e.g. `https://www.zenduty.com/api/events/<integration_key>/`"
     )
     @PluginProperty(dynamic = true, group = "main", secret = true)
+    @ToString.Exclude
     @NotBlank
     protected String url;
 
