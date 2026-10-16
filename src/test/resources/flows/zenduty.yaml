@@ -13,6 +13,12 @@ tasks:
     message: "Kestra Zenduty alert"
     alertType: ERROR
     executionId: "{{trigger.executionId}}"
+    customMessage: "Check the nightly ETL"
+    customFields:
+      Team: data-platform
+      Env: prod
+      Source flow: "{{ trigger.flowId }}"
+      Retries: 3
 
 triggers:
   - id: on_failure

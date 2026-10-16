@@ -46,5 +46,10 @@ public class ZendutyExecutionTest extends AbstractZendutyTest {
         assertThat(receivedData, containsString("changed status to FAILED"));
         assertThat(receivedData, containsString("\"Final task ID\":\"failed\""));
         assertThat(receivedData, containsString("Kestra Zenduty alert"));
+        assertThat(receivedData, containsString("\"Message\":\"Check the nightly ETL\""));
+        assertThat(receivedData, containsString("\"Team\":\"data-platform\""));
+        assertThat(receivedData, containsString("\"Env\":\"prod\""));
+        assertThat(receivedData, containsString("\"Source flow\":\"main-flow-that-fails\""));
+        assertThat(receivedData, containsString("\"Retries\":3"));
     }
 }
