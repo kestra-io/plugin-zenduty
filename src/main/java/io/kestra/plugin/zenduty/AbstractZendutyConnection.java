@@ -29,7 +29,7 @@ import lombok.experimental.SuperBuilder;
 public abstract class AbstractZendutyConnection extends Task implements RunnableTask<VoidOutput> {
     @Schema(
         title = "Tune Zenduty HTTP client",
-        description = "Optional HTTP client settings such as timeouts, charset, headers, and response size limits. Defaults: read timeout 10s, read idle timeout 5m, connection pool idle timeout 0s (no reuse), max content length 10 MB, charset UTF-8"
+        description = "Optional HTTP client settings such as timeouts, charset, and headers. Defaults: read idle timeout 5m, charset UTF-8"
     )
     @PluginProperty(dynamic = true, group = "advanced")
     protected RequestOptions options;
@@ -75,9 +75,15 @@ public abstract class AbstractZendutyConnection extends Task implements Runnable
         @PluginProperty(group = "execution")
         private final Property<Duration> connectTimeout;
 
-        @Schema(title = "Read timeout before failing", description = "Defaults to 10s; aborts if the server does not send data within this duration")
+        @Deprecated
+        @Schema(
+            title = "Read timeout before failing",
+            description = """
+                Deprecated, this option has no effect: Kestra's HTTP client has no separate read timeout. Use `readIdleTimeout` instead.
+                """
+        )
         @Builder.Default
-        @PluginProperty(group = "execution")
+        @PluginProperty(group = "deprecated")
         private final Property<Duration> readTimeout = Property.ofValue(Duration.ofSeconds(10));
 
         @Schema(title = "Idle read timeout", description = "Defaults to 5m; closes the connection if no data is read during this interval")
@@ -85,14 +91,26 @@ public abstract class AbstractZendutyConnection extends Task implements Runnable
         @PluginProperty(group = "execution")
         private final Property<Duration> readIdleTimeout = Property.ofValue(Duration.of(5, ChronoUnit.MINUTES));
 
-        @Schema(title = "Connection pool idle timeout", description = "Defaults to 0s; disables keeping idle connections in the pool")
+        @Deprecated
+        @Schema(
+            title = "Connection pool idle timeout",
+            description = """
+                Deprecated, this option has no effect: Kestra's HTTP client does not support a connection pool idle timeout.
+                """
+        )
         @Builder.Default
-        @PluginProperty(group = "execution")
+        @PluginProperty(group = "deprecated")
         private final Property<Duration> connectionPoolIdleTimeout = Property.ofValue(Duration.ofSeconds(0));
 
-        @Schema(title = "Maximum response size", description = "Defaults to 10 MB; responses larger than this fail")
+        @Deprecated
+        @Schema(
+            title = "Maximum response size",
+            description = """
+                Deprecated, this option has no effect: Kestra's HTTP client does not limit the response size.
+                """
+        )
         @Builder.Default
-        @PluginProperty(group = "execution")
+        @PluginProperty(group = "deprecated")
         private final Property<Integer> maxContentLength = Property.ofValue(1024 * 1024 * 10);
 
         @Schema(title = "Request charset", description = "Defaults to UTF-8 for request encoding")
